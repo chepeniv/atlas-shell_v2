@@ -21,4 +21,8 @@ int main() {
     fclose(fp);//close file
     return 0;
 }
+<<<<<<< HEAD
 // Ariel
+=======
+// Ariel
+>>>>>>> 8a9a249 (Arielcreated EOF for main; created folder for builtins)
