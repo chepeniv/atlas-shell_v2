@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 // Built in for change directory
-int change_directory (const char *pathname, char *old, size_t len)
+int change_directory(const char *pathname, char *old, size_t len)
 {
     char *home = getenv("HOME");
     char *old = getenv("OLDPWD");
@@ -35,4 +35,4 @@ int change_directory (const char *pathname, char *old, size_t len)
     perror("cd");
     }
 }
-// Ariel
+// Ariel- path will need to be defined in main or I can rewrite in here

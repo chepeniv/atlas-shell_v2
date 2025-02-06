@@ -1,10 +1,14 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+
 int main() {
     char ch;
-    FILE fp;
+    FILE *fp;
     // open file in write mode
     fp = fopen("std1.txt", "w");
 
-    printf("enter text then press ctrl d": );
+    printf("enter text then press Ctrl+D: " );
     // Till character reaches EOF, write each character in file pointer
 
     while ((ch = getchar()) != EOF) {
