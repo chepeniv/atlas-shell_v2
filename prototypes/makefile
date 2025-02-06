@@ -1,5 +1,6 @@
 CC = gcc
 
+UTILS = util_*.c
 CFLAGS = -Wall -Werror -Wextra -ggdb3
 # I_FLAGS = $(shell pkg-config --cflags gtk4)
 # L_FLAGS = $(shell pkg-config --libs gtk4)
@@ -12,7 +13,7 @@ CCMD = ${CC} ${I_FLAGS} ${CFLAGS} ${L_FLAGS}
 
 
 all: pid ppid noargc readline splitter execve forker wait five stat envmain $\
-	environ which simpsh which env-utils
+	environ which simpsh which env-utils getenv setenv unsetenv
 
 pid:
 	${CCMD} pid.c -o pid.exec
@@ -51,13 +52,22 @@ environ:
 	${CCMD} environ.c -o environ.exec
 
 which:
-	${CCMD} _which.c -o _which.exec
+	${CCMD} _which.c ${UTILS} -o _which.exec
 
 env-utils:
-	${CCMD} env-utils.main.c chepe-str.c -o env-utils.exec
+	${CCMD} test/env-utils.test.c chepe-str.c -o env-utils.exec
+
+getenv:
+	${CCMD} test/_getenv.test.c env_utils.c chepe-str.c -o _getenv.exec
+
+setenv:
+	${CCMD} test/_setenv.test.c ${UTILS} -o _setenv.exec
+
+unsetenv:
+	${CCMD} test/_unsetenv.test.c ${UTILS} -o _unsetenv.exec
 
 simpsh:
-	${CCMD} simpsh.c -o simpsh.exec
+	${CCMD} simpsh.c ${UTILS} -o simpsh.exec
 
 clean:
 	$(RM) *~ *.exec *.o
