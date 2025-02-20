@@ -67,7 +67,7 @@
 #include <sys/stat.h>
 
 	int stat(char *path, struct stat *statbuff);   // __xstat
-	int fstat(int fd, struct stat *statbuff);  // __fxstat
+	int fstat(int fd, struct stat *statbuff);      // __fxstat
 	int lstat(char *path, struct stat *statbuff);  // __lxstat
 
 #include <signal.h>
@@ -81,7 +81,7 @@
 		struct sigaction *act,
 		struct sigaction oldact);
 
-#include <fctl.h>
+#include <fcntl.h>
 
 	int open(char *path, int flags, ... /* mode_t mode */ );
 
@@ -109,7 +109,6 @@
 ### libcalls
 
 ```c
-
 /* libraries can hold both syscalls and non-syscalls 🌠 tmyk */
 
 #include <signal.h>
@@ -156,14 +155,12 @@
 #include <pwd.h>
 
 	struct passwd *getpwuid(uid_t uid);
-
 ```
+
 ### indeterminate
 
 ```c
-
 int *__errno_location(void); /* errno macros ? */
-
 ```
 
 ## Compilation
