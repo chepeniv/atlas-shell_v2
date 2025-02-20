@@ -21,14 +21,14 @@ void print_prompt(char *prompt)
 int main(int c, char **args)
 {
 	char *inputline = NULL;
-	size_t input_len = 0;
+	size_t input_len = 0, result;
 
 	init_env();
 
 	if (c > 1)
 	{
 		inputline = deserialize(&(args[1]));
-		proc_cmds(inputline);
+		result = proc_cmds(inputline);
 	}
 	else
 	{
@@ -38,7 +38,7 @@ int main(int c, char **args)
 			if (str_match(inputline, "exit\n"))
 				break;
 			else
-				proc_cmds(inputline);
+				result = proc_cmds(inputline);
 			print_prompt(NULL);
 		}
 	}
@@ -47,5 +47,5 @@ int main(int c, char **args)
 
 	free(inputline);
 
-	return (0);
+	return (result);
 }
