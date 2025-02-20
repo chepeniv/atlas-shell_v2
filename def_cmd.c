@@ -4,6 +4,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <sys/stat.h> /* file mode_t defs */
 #include "dec_str.h"
 #include "dec_env.h"
@@ -19,6 +20,10 @@ char **_get_cmd(char *cmd, char **cmdpath)
 
 	cmd_tokens = tokenize(cmd, " ", 512);
 	*cmdpath = _which(cmd_tokens[0]);
+
+	/* hard coded error message */
+	if (!(*cmdpath))
+		dprintf(2, "./hsh: %s: not found\n", cmd_tokens[0]);
 
 	return (cmd_tokens);
 }
@@ -45,7 +50,7 @@ int _run_cmd(char *cmdpath, char **cmd_tokens, int code, int fdesc)
 			dup2(readin, STDIN_FILENO);
 			dup2(writeout, STDOUT_FILENO);
 			execve(cmdpath, cmd_tokens, environ);
-			return (0);
+			exit(1);
 		default:
 			wait(&wstatus);
 			if (writeout != STDOUT_FILENO)
@@ -109,6 +114,10 @@ int _resolve_logic(int cmdexit, int operand)
 {
 	switch (operand)
 	{
+	case (BAR):
+		if (cmdexit)
+			return (1);
+		break;
 	case (BBAR):
 		if (cmdexit)
 			return (1);
@@ -145,6 +154,8 @@ int proc_cmds(char *line)
 
 		if (!skip && cmdpath)
 			cmdexit = _run_cmd(cmdpath, cmd_tokens, sep, fdesc);
+		else
+			cmdexit = 1;
 
 		skip = _resolve_logic(cmdexit, sep);
 

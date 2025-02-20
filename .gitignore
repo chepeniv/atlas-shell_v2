@@ -15,6 +15,7 @@
 
 *.exec
 *.o
+*.x
 *~
 
 ######## output analysis
@@ -25,9 +26,14 @@
 *.error
 *.log
 *.out
+*.file
 
 ######## unit testing
 
 # *.test.* 
 *.cunit.*
 *.test
+
+######## specific files
+
+hsh

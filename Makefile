@@ -22,4 +22,4 @@ test:
 	${MEMTEST} ./sh_v2.x
 
 clean:
-	$(RM) *~ *.exec *.o *.out *.x
+	$(RM) -v *~ *.exec *.o *.out *.x hsh
