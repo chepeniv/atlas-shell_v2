@@ -114,10 +114,6 @@ int _resolve_logic(int cmdexit, int operand)
 {
 	switch (operand)
 	{
-	case (BAR):
-		if (cmdexit)
-			return (1);
-		break;
 	case (BBAR):
 		if (cmdexit)
 			return (1);
@@ -154,8 +150,6 @@ int proc_cmds(char *line)
 
 		if (!skip && cmdpath)
 			cmdexit = _run_cmd(cmdpath, cmd_tokens, sep, fdesc);
-		else
-			cmdexit = 1;
 
 		skip = _resolve_logic(cmdexit, sep);
 
