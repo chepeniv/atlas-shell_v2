@@ -124,12 +124,13 @@ int _resolve_logic(int cmdexit, int operand)
 int proc_cmds(char *line)
 {
 	char *separ, *filename = NULL, *cmd, **cmd_tokens, *cmdpath;
-	int sep, red, fdesc = -1, cmdexit, skip = 0;
+	int sep, red, fdesc, saveout, cmdexit, skip = 0;
 
 	line = str_strip(line);
 
 	while ((separ = get_separation(line, &sep)))
 	{
+		saveout = dup(STDOUT_FILENO);
 		fdesc = STDOUT_FILENO;
 		separ = str_dup(separ);
 		cmd = get_redirection(separ, &red);
@@ -142,10 +143,12 @@ int proc_cmds(char *line)
 
 		cmd_tokens = _get_cmd(cmd, &cmdpath);
 
-		if (!skip)
+		if (!skip && cmdpath)
 			cmdexit = _run_cmd(cmdpath, cmd_tokens, sep, fdesc);
 
 		skip = _resolve_logic(cmdexit, sep);
+
+		dup2(saveout, STDOUT_FILENO);
 
 		free(cmd);
 		free(cmdpath);

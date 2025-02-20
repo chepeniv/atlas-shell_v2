@@ -176,6 +176,7 @@ char *str_strip(char *text)
 		sentence = str_cat(sentence, " ");
 		w++;
 	}
+
 	sentence = str_cat(sentence, words[w]);
 
 	free(text);
