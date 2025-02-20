@@ -35,7 +35,7 @@ int main(int c, char **args)
 		print_prompt(NULL);
 		while (getline(&inputline, &input_len, stdin) > -1)
 		{
-			if (!strcmp(inputline, "exit\n"))
+			if (str_match(inputline, "exit\n"))
 				break;
 			else
 				proc_cmds(inputline);
