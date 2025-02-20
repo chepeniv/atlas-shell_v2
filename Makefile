@@ -11,9 +11,12 @@ CCMD = ${CC} ${I_FLAGS} ${CFLAGS} ${L_FLAGS} ${DB_FLAGS}
 
 .PHONY: clean
 
-all: simpsh
+all: checker
 
-simpsh:
+checker:
+	${CC} ${CFLAGS} ${DEFS} shell_v2.c -o hsh
+
+test:
 	clear
 	${CCMD} ${DEFS} shell_v2.c -o sh_v2.x
 	${MEMTEST} ./sh_v2.x
