@@ -22,5 +22,6 @@ char *remove_comment(char *text, char *comment);
 char **tokenize(char *text, char *delims, int limit);
 char *get_separation(const char *line, int *sep);
 char *get_redirection(const char *line, int *part);
+char *deserialize(char **series);
 
 #endif /* _PARSER_ */

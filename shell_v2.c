@@ -10,23 +10,37 @@
 #include "dec_path.h"
 #include "dec_str.h"
 
-int main(void)
+void print_prompt(char *prompt)
+{
+	if (!prompt)
+		prompt = "$ ";
+	if (isatty(STDIN_FILENO))
+		printf("%s", prompt);
+}
+
+int main(int c, char **args)
 {
 	char *inputline = NULL;
 	size_t input_len = 0;
 
 	init_env();
 
-	while (1)
+	if (c > 1)
 	{
-		printf("$ ");
-
-		if (getline(&inputline, &input_len, stdin) == -1)
-			continue;
-		if (!strcmp(inputline, "exit\n"))
-			break;
-		else
-			proc_cmds(inputline);
+		inputline = deserialize(&(args[1]));
+		proc_cmds(inputline);
+	}
+	else
+	{
+		print_prompt(NULL);
+		while (getline(&inputline, &input_len, stdin) > -1)
+		{
+			if (!strcmp(inputline, "exit\n"))
+				break;
+			else
+				proc_cmds(inputline);
+			print_prompt(NULL);
+		}
 	}
 
 	reset_env();

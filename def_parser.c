@@ -5,6 +5,21 @@
 #include "dec_str.h"
 #include "dec_cmd.h"
 
+char *deserialize(char **series)
+{
+	char *result = result = str_dup("");
+	int i = 0;
+
+	while (series[i] != NULL)
+	{
+		result = str_cat(result, " ");
+		result = str_cat(result, series[i]);
+		i++;
+	}
+
+	return (result);
+}
+
 int _check_redir_chars(const char *string, int pos)
 {
 	switch (string[pos])
